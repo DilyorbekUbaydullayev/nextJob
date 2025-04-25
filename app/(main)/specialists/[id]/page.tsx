@@ -8,15 +8,28 @@ import { useAuth } from "@/hooks/use-auth"
 import { useSpecialist } from "@/hooks/use-specialists"
 import { AtSign, Briefcase, Mail, Phone, User2 } from "lucide-react"
 import Link from "next/link"
-import { notFound, useParams } from "next/navigation"
+import { notFound, useParams, useRouter } from "next/navigation"
 import { motion } from "framer-motion"
+import { useDeleteJob, useDeleteSpecial } from "@/hooks/use-jobs"
 
 export default function SpecialistDetailPage() {
    const params = useParams()
+   const router = useRouter();
     const specialistId = params?.id as string;
   const { data: specialist, isLoading, error } = useSpecialist(specialistId)
   const { isAuthenticated } = useAuth()
-
+const {
+    mutate: deleteJob,
+    isPending: isDeleting,
+    error: deleteError,
+  } = useDeleteSpecial({
+    onSuccess: () => {
+      router.push("/jobs");
+    },
+    onError: (err) => {
+      console.error("Delete error:", err);
+    },
+  });
   if (error) {
     return notFound()
   }
@@ -58,9 +71,24 @@ export default function SpecialistDetailPage() {
                 </div>
               </div>
               {isAuthenticated && (
-                <Link href={`/specialists/${params.id}/edit`}>
-                  <Button variant="outline">Edit Profile</Button>
-                </Link>
+                <div className="flex gap-2">
+                  <Link href={`/specialists/${params.id}/edit`}>
+                    <Button variant="outline">Edit Job</Button>
+                  </Link>
+                  <Button
+                    variant="destructive"
+                    disabled={isDeleting}
+                    onClick={() => {
+                      if (
+                        confirm(`"${specialist?.title}" ishini oʻchirmoqchimisiz?`)
+                      ) {
+                        deleteJob(specialistId);
+                      }
+                    }}
+                  >
+                    {isDeleting ? "Oʻchirilmoqda…" : "Delete Job"}
+                  </Button>
+                </div>
               )}
             </div>
           </div>
