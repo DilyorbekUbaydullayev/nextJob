@@ -136,3 +136,32 @@ export function useDeleteJob(options?: DeleteJobOptions) {
     },
   })
 }
+export function useDeleteSpecial(options?: DeleteJobOptions) {
+  const queryClient = useQueryClient()
+
+  return useMutation<string, Error, string>({
+    // <ResultType, ErrorType, VariablesType>
+    mutationFn: async (id: string) => {
+      const token = localStorage.getItem("token")
+      if (!token) throw new Error("Authentication required")
+
+      const res = await authFetch(`${API_URL}/specialists/${id}/`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      if (!res.ok) throw new Error("Failed to delete job")
+      return id
+    },
+    onSuccess: (deletedId) => {
+      // 1) cache’ni yangilaymiz
+      queryClient.invalidateQueries({ queryKey: ["jobs"] })
+      // 2) tashqi callback-ni chaqiramiz
+      options?.onSuccess?.()
+    },
+    onError: (err) => {
+      options?.onError?.(err)
+    },
+  })
+}
