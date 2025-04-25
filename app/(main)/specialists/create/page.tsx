@@ -6,7 +6,7 @@ import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
 import { useCreateSpecialist } from "@/hooks/use-specialists"
 import { useAuth } from "@/hooks/use-auth"
@@ -48,7 +48,7 @@ const formSchema = z.object({
 export default function CreateSpecialistPage() {
   const { toast } = useToast()
   const router = useRouter()
-  const { mutateAsync: createSpecialist, isLoading } = useCreateSpecialist()
+  const { mutateAsync: createSpecialist, isPending } = useCreateSpecialist()
   const { isAuthenticated, isLoading: authLoading } = useAuth()
 
   useEffect(() => {
@@ -211,8 +211,8 @@ export default function CreateSpecialistPage() {
                   />
                 </div>
                 <div className="flex justify-end">
-                  <Button type="submit" disabled={isLoading}>
-                    {isLoading ? "Creating..." : "Create Specialist"}
+                  <Button type="submit" disabled={isPending}>
+                    {isPending ? "Creating..." : "Create Specialist"}
                   </Button>
                 </div>
               </form>
