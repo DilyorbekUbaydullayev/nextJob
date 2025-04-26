@@ -5,31 +5,18 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useAuth } from "@/hooks/use-auth"
-import { useSpecialist } from "@/hooks/use-specialists"
+import {useSpecialist } from "@/hooks/use-specialists"
 import { AtSign, Briefcase, Mail, Phone, User2 } from "lucide-react"
 import Link from "next/link"
 import { notFound, useParams, useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { useDeleteJob, useDeleteSpecial } from "@/hooks/use-jobs"
+import { DeleteSpecialistModal } from "@/components/delete-modal-speacial"
 
 export default function SpecialistDetailPage() {
    const params = useParams()
-   const router = useRouter();
     const specialistId = params?.id as string;
   const { data: specialist, isLoading, error } = useSpecialist(specialistId)
   const { isAuthenticated } = useAuth()
-const {
-    mutate: deleteJob,
-    isPending: isDeleting,
-    error: deleteError,
-  } = useDeleteSpecial({
-    onSuccess: () => {
-      router.push("/jobs");
-    },
-    onError: (err) => {
-      console.error("Delete error:", err);
-    },
-  });
   if (error) {
     return notFound()
   }
@@ -73,21 +60,9 @@ const {
               {isAuthenticated && (
                 <div className="flex gap-2">
                   <Link href={`/specialists/${params.id}/edit`}>
-                    <Button variant="outline">Edit Job</Button>
+                    <Button variant="outline">Edit </Button>
                   </Link>
-                  <Button
-                    variant="destructive"
-                    disabled={isDeleting}
-                    onClick={() => {
-                      if (
-                        confirm(`"${specialist?.title}" ishini oʻchirmoqchimisiz?`)
-                      ) {
-                        deleteJob(specialistId);
-                      }
-                    }}
-                  >
-                    {isDeleting ? "Oʻchirilmoqda…" : "Delete Job"}
-                  </Button>
+                  <DeleteSpecialistModal specialistId={specialistId} title={specialist?.username} />
                 </div>
               )}
             </div>

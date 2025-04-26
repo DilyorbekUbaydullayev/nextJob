@@ -2,6 +2,7 @@
 
 import { useState, useEffect, createContext, useContext, type ReactNode } from "react"
 import { useToast } from "@/hooks/use-toast"
+import { useRouter } from "next/navigation"
 
 const API_URL = "https://mustafocoder.pythonanywhere.com/api"
 
@@ -19,9 +20,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const { toast } = useToast()
-
+const router = useRouter()
   useEffect(() => {
-    // Check if user is authenticated on initial load
+   
     const checkAuth = () => {
       const token = localStorage.getItem("token")
       if (token) {
@@ -30,7 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setIsLoading(false)
     }
 
-    // Only run on client side
+    
     if (typeof window !== "undefined") {
       checkAuth()
     } else {
@@ -97,6 +98,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       title: "Logged out",
       description: "You have been logged out successfully.",
     })
+    router.push('/login')
+    
   }
 
   return (
