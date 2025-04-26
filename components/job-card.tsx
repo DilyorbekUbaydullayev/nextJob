@@ -39,7 +39,7 @@ export function JobCard({ job }: JobCardProps) {
           </Badge>
           <Badge variant="outline" className="flex items-center gap-1">
             <Calendar className="h-3 w-3" />
-            {formatDate(job.time)}
+            {job.ish_vaqti}
           </Badge>
         </CardFooter>
       </Card>

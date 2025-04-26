@@ -23,7 +23,7 @@ export default function SpecialistDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="container py-8">
+      <div className="container py-8 ">
         <div className="max-w-3xl mx-auto">
           <Skeleton className="h-12 w-3/4 mb-4" />
           <Skeleton className="h-6 w-1/2 mb-8" />
@@ -35,11 +35,11 @@ export default function SpecialistDetailPage() {
   }
 
   return (
-    <div className="container py-8">
+    <div className="container py-8 mx-auto">
       <div className="max-w-3xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <div className="mb-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
               <div className="flex items-center gap-4">
                 <Avatar className="h-16 w-16">
                   <AvatarFallback className="text-xl">
@@ -60,7 +60,7 @@ export default function SpecialistDetailPage() {
               {isAuthenticated && (
                 <div className="flex gap-2">
                   <Link href={`/specialists/${params.id}/edit`}>
-                    <Button variant="outline">Edit </Button>
+                    <Button variant="outline" className='w-[75px]'>Edit </Button>
                   </Link>
                   <DeleteSpecialistModal specialistId={specialistId} title={specialist?.username} />
                 </div>
@@ -68,7 +68,7 @@ export default function SpecialistDetailPage() {
             </div>
           </div>
 
-          <Card>
+          <Card className="mx-auto max-sm:mx-4">
             <CardContent className="pt-6">
               <div className="space-y-6">
                 <div>

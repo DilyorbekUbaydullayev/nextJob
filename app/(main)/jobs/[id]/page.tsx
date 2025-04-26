@@ -39,7 +39,7 @@ export default function JobDetailPage() {
   }
 
   return (
-    <div className="container py-8">
+    <div className="container py-8 mx-auto">
       <div className="max-w-3xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -47,9 +47,9 @@ export default function JobDetailPage() {
           transition={{ duration: 0.5 }}
         >
           <div className="mb-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">
+                <h1 className="text-3xl max-md:text-xl font-bold tracking-tight">
                   {job?.title}
                 </h1>
                 <div className="flex items-center gap-2 mt-2">
@@ -60,13 +60,13 @@ export default function JobDetailPage() {
               {isAuthenticated && (
                 <div className="flex gap-2">
                   <Link href={`/jobs/${params.id}/edit`}>
-                    <Button variant="outline">Edit </Button>
+                    <Button variant="outline" className='w-[75px]'>Edit </Button>
                   </Link>
                   <DeleteJobModal jobId={jobId} title={job.title} />
                 </div>
               )}
             </div>
-            <div className="flex flex-wrap gap-3 mt-4">
+            <div className=" container mx-auto max-sm:px-4 flex flex-wrap gap-3 mt-4 ">
               <Badge variant="outline" className="flex items-center gap-1">
                 <MapPin className="h-3 w-3" />
                 {job?.location}
@@ -81,9 +81,9 @@ export default function JobDetailPage() {
               <Badge>{job?.work_type}</Badge>
             </div>
           </div>
-
-          <Card>
-            <CardContent className="pt-6">
+ 
+          <Card className="mx-auto max-sm:mx-4">
+            <CardContent className="pt-6 ">
               <div className="prose dark:prose-invert max-w-none">
                 <h2 className="text-xl font-semibold mb-4">Job Description</h2>
                 <p className="whitespace-pre-line">{job?.description}</p>

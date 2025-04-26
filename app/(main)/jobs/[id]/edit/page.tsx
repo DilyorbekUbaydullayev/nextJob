@@ -108,7 +108,7 @@ export default function EditJobPage() {
 
   if (authLoading || jobLoading) {
     return (
-      <div className="container py-8">
+      <div className="container py-8 ">
         <div className="max-w-2xl mx-auto">
           <Skeleton className="h-12 w-3/4 mb-4" />
           <Skeleton className="h-6 w-1/2 mb-8" />
@@ -123,7 +123,7 @@ export default function EditJobPage() {
   }
 
   return (
-    <div className="container py-8">
+    <div className="container py-8 mx-auto px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
