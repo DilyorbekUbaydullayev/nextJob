@@ -6,7 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
 const API_URL = "https://mustafocoder.pythonanywhere.com/api"
 
-// Fetch all specialists
+
 export function useSpecialists() {
   return useQuery({
     queryKey: ["specialists"],
@@ -20,7 +20,7 @@ export function useSpecialists() {
   })
 }
 
-// Fetch a single specialist by ID
+
 export function useSpecialist(id: string) {
   return useQuery({
     queryKey: ["specialist", id],
@@ -34,7 +34,7 @@ export function useSpecialist(id: string) {
   })
 }
 
-// Create a new specialist
+
 export function useCreateSpecialist() {
   const queryClient = useQueryClient()
 
@@ -66,7 +66,7 @@ export function useCreateSpecialist() {
   })
 }
 
-// Update an existing specialist
+
 export function useUpdateSpecialist() {
   const queryClient = useQueryClient()
 
@@ -101,7 +101,7 @@ export function useUpdateSpecialist() {
   })
 }
 
-// Delete a specialist
+
 export function useDeleteSpecialist() {
   const queryClient = useQueryClient()
 

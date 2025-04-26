@@ -140,7 +140,7 @@ export function useDeleteSpecial(options?: DeleteJobOptions) {
   const queryClient = useQueryClient()
 
   return useMutation<string, Error, string>({
-    // <ResultType, ErrorType, VariablesType>
+   
     mutationFn: async (id: string) => {
       const token = localStorage.getItem("token")
       if (!token) throw new Error("Authentication required")
@@ -155,9 +155,9 @@ export function useDeleteSpecial(options?: DeleteJobOptions) {
       return id
     },
     onSuccess: (deletedId) => {
-      // 1) cache’ni yangilaymiz
+      
       queryClient.invalidateQueries({ queryKey: ["jobs"] })
-      // 2) tashqi callback-ni chaqiramiz
+      
       options?.onSuccess?.()
     },
     onError: (err) => {

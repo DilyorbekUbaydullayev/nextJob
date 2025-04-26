@@ -19,7 +19,7 @@ interface JobFiltersProps {
 }
 
 export function JobFilters({ filters, setFilters }: JobFiltersProps) {
-  const locations = ["Tashkent", "Samarkand", "Bukhara", "Andijan", "Namangan"]
+  const locations = ["Tashkent", "Samarkand", "Bukhara", "Andijan", "Namangan","Fergana"]
   const workTypes = ["Full-time", "Part-time", "Contract", "Freelance", "Remote"]
 
   const resetFilters = () => {

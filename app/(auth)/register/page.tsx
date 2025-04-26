@@ -18,6 +18,9 @@ const formSchema = z
     username: z.string().min(3, {
       message: "Username must be at least 3 characters.",
     }),
+    email: z.string().email({
+      message: "Invalid email address.",
+    }),
     password: z.string().min(6, {
       message: "Password must be at least 6 characters.",
     }),
@@ -39,6 +42,7 @@ export default function RegisterPage() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
+      email:"",
       password: "",
       confirmPassword: "",
     },
@@ -65,7 +69,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="container flex items-center justify-center min-h-screen py-12 mx-auto">
+    <div className="container  flex items-center justify-center min-h-screen py-8 mx-auto">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -88,6 +92,19 @@ export default function RegisterPage() {
                       <FormLabel>Username</FormLabel>
                       <FormControl>
                         <Input placeholder="Choose a username" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter your email" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

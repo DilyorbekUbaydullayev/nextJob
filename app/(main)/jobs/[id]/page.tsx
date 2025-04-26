@@ -5,32 +5,21 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/hooks/use-auth";
-import { useDeleteJob, useJob } from "@/hooks/use-jobs";
+import { useJob } from "@/hooks/use-jobs";
 import { formatDate } from "@/lib/utils";
 import { Building, Calendar, DollarSign, MapPin } from "lucide-react";
 import Link from "next/link";
-import { notFound, useParams, useRouter } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { motion } from "framer-motion";
+
+import { DeleteJobModal } from "@/components/delete-modal-job";
 
 export default function JobDetailPage() {
   const params = useParams();
   const jobId = params?.id as string;
-  const router = useRouter();
+
   const { data: job, isLoading, error } = useJob(jobId);
   const { isAuthenticated } = useAuth();
-
-  const {
-    mutate: deleteJob,
-    isPending: isDeleting,
-    error: deleteError,
-  } = useDeleteJob({
-    onSuccess: () => {
-      router.push("/jobs");
-    },
-    onError: (err) => {
-      console.error("Delete error:", err);
-    },
-  });
 
   if (error) {
     return notFound();
@@ -71,21 +60,9 @@ export default function JobDetailPage() {
               {isAuthenticated && (
                 <div className="flex gap-2">
                   <Link href={`/jobs/${params.id}/edit`}>
-                    <Button variant="outline">Edit Job</Button>
+                    <Button variant="outline">Edit </Button>
                   </Link>
-                  <Button
-                    variant="destructive"
-                    disabled={isDeleting}
-                    onClick={() => {
-                      if (
-                        confirm(`"${job?.title}" ishini oʻchirmoqchimisiz?`)
-                      ) {
-                        deleteJob(jobId);
-                      }
-                    }}
-                  >
-                    {isDeleting ? "Oʻchirilmoqda…" : "Delete Job"}
-                  </Button>
+                  <DeleteJobModal jobId={jobId} title={job.title} />
                 </div>
               )}
             </div>
