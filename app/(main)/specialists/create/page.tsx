@@ -66,7 +66,7 @@ export default function CreateSpecialistPage() {
       phone: "",
       email: "",
       position: "",
-      age: undefined,
+      age: 18,
     },
   })
 
