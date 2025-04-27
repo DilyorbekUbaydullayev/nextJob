@@ -30,14 +30,14 @@ export function DeleteJobModal({ jobId, title }: DeleteJobModalProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="destructive" size="sm">
+        <Button variant="destructive" className='w-[75px]'>
           Delete 
         </Button>
       </DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Ishni o‘chirilsinmi?</DialogTitle>
+          <DialogTitle>Ish o‘chirilsinmi?</DialogTitle>
           <DialogDescription>
             “{title}” ishini oʻchirmoqchimisiz? Bu amal qaytarib boʻlmaydi.
           </DialogDescription>

@@ -98,7 +98,7 @@ export default function CreateSpecialistPage() {
   }
 
   return (
-    <div className="container py-8">
+    <div className="container py-8 mx-auto px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

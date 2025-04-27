@@ -13,7 +13,7 @@ export function MainNav() {
 
   return (
     <div className="mr-4 hidden  md:flex  px-8">
-      <Link href="/" className="mr-8 flex items-center  space-x-2">
+      <Link href="/" className="mr-8 flex items-center max-sm:hidden space-x-2">
         <BriefcaseBusiness className="h-6 w-6" />
         <span className="hidden font-bold sm:inline-block">NextJob</span>
       </Link>

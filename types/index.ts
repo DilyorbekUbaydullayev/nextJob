@@ -7,7 +7,7 @@ export interface Job {
   time: string
   work_type: string
   salary: number
-  ish_vaqti?:string
+  ish_vaqti:string
 }
 
 export interface User {

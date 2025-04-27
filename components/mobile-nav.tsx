@@ -5,9 +5,15 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu } from "lucide-react"
-import { BriefcaseBusiness } from "lucide-react"
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet"
+import { Menu, BriefcaseBusiness } from "lucide-react"
 import { useAuth } from "@/hooks/use-auth"
 
 export function MobileNav() {
@@ -32,18 +38,35 @@ export function MobileNav() {
             <span className="sr-only">Toggle Menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="pr-0">
-          <Link href="/" className="flex items-center" onClick={() => setOpen(false)}>
+
+        <SheetContent
+          side="left"
+          className="pr-0"
+          aria-label="Mobile navigation menu"
+        >
+          <SheetHeader>
+            <SheetTitle>Menu</SheetTitle>
+            <SheetDescription>
+              
+            </SheetDescription>
+          </SheetHeader>
+
+          <Link
+            href="/"
+            className="flex items-center"
+            onClick={() => setOpen(false)}
+          >
             <BriefcaseBusiness className="h-6 w-6 mr-2" />
             <span className="font-bold">NextJob</span>
           </Link>
+
           <div className="flex flex-col space-y-3 mt-6">
             <Link
               href="/jobs"
               onClick={() => setOpen(false)}
               className={cn(
                 "text-foreground/60 transition-colors hover:text-foreground/80",
-                pathname.startsWith("/jobs") && "text-foreground font-medium",
+                pathname.startsWith("/jobs") && "text-foreground font-medium"
               )}
             >
               Jobs
@@ -53,13 +76,17 @@ export function MobileNav() {
               onClick={() => setOpen(false)}
               className={cn(
                 "text-foreground/60 transition-colors hover:text-foreground/80",
-                pathname.startsWith("/specialists") && "text-foreground font-medium",
+                pathname.startsWith("/specialists") && "text-foreground font-medium"
               )}
             >
               Specialists
             </Link>
             {isAuthenticated ? (
-              <Button variant="ghost" className="justify-start px-2" onClick={handleLogout}>
+              <Button
+                variant="ghost"
+                className="justify-start mx-0 px-1"
+                onClick={handleLogout}
+              >
                 Logout
               </Button>
             ) : (
@@ -68,7 +95,7 @@ export function MobileNav() {
                 onClick={() => setOpen(false)}
                 className={cn(
                   "text-foreground/60 transition-colors hover:text-foreground/80",
-                  pathname.startsWith("/login") && "text-foreground font-medium",
+                  pathname.startsWith("/login") && "text-foreground font-medium"
                 )}
               >
                 Login
@@ -77,10 +104,6 @@ export function MobileNav() {
           </div>
         </SheetContent>
       </Sheet>
-      <Link href="/" className="flex items-center">
-        <BriefcaseBusiness className="h-6 w-6 mr-2" />
-        <span className="font-bold">NextJob</span>
-      </Link>
     </div>
   )
 }
